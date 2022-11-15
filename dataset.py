@@ -45,42 +45,9 @@ class UnityRecording:
     def get(self, name):
         return self.__tensor_dict__[name]
     # end class
-#print(tensorInfo[0]['tensor'])
 
 
-recordingDir = "../recording/"
 
-dir = os.listdir(recordingDir)
-filename = dir[0]
-filepath = recordingDir + filename
-
-recording = UnityRecording(filepath)
-tensorsNames = recording.listNames()
-print(tensorsNames)
-points = recording.get('points')
-
-# buoys are not on a per-point basis, will need to be retrieved by their ID
-inRange = recording.get('BuoyInRange') # can be used to mask out which buoys are in range
-buoySize = recording.get('BuoySize') # get the size of buoys
-# maybe add a 'BuoyID' array?
-
-dt = recording.get('dt')
-
-px = int(0.5*len(points))
-x = points[px][:, 0]
-y = points[px][:, 1]
-z = points[px][:, 2]
-c = points[px][:, 3]
-
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import proj3d
-
-fig = plt.figure(figsize=(8, 8))
-ax = fig.add_subplot(111, projection='3d')
-
-img = ax.scatter(x, y, z, c=c, cmap=plt.hot())
-fig.colorbar(img)
-plt.show()
 
 
     
